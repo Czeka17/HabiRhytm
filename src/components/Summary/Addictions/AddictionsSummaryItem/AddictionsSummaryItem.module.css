@@ -1,0 +1,8 @@
+.item{
+    width: 300px;
+    height: 150px;
+    background: var(--accent-color);
+    color: white;
+    list-style: none;
+    border-radius: 20px;
+}

@@ -1,0 +1,17 @@
+.habitSummaryItem{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    width: 100%;
+    background-color: var(--accent-color);
+    border-radius: 20px;
+    padding: 1em;
+    margin: 2em 0;
+}
+.habitSummaryItemName{
+    width: 100%;
+}
+.habitSummaryItemChart{
+    width: 100%;
+}

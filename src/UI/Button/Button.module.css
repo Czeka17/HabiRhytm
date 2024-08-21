@@ -1,0 +1,30 @@
+.button {
+    position: relative;
+    padding: 1em 2em;
+    background-color: var(--accent-color);
+    color: var(--text-color);
+    letter-spacing: 2px;
+    border-radius: 20px;
+    border: 2px solid rgb(82, 255, 184);;
+    cursor: pointer;
+    z-index: 1;
+}
+
+
+.button::before {
+    content: "";
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    right: -4px;
+    bottom: -4px;
+    border-radius: 20px;
+    border: 2px solid rgb(82, 255, 184);
+    filter: blur(4px);
+    z-index: -1; 
+    transition: 0.3s all;
+}
+
+.button:hover::before{
+    filter: blur(8px);
+}

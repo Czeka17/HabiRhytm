@@ -1,0 +1,14 @@
+.navList{
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.navList li{
+    padding: 1em;
+    margin: 0 1em;
+}
+.link{
+    text-decoration: none;
+    color: var(--text-color);
+}

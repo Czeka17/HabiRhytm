@@ -1,0 +1,15 @@
+.list{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 1em;
+    list-style: none;
+    max-width: 900px;
+    margin: 0 auto;
+}
+.addictionList{
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1em;
+}

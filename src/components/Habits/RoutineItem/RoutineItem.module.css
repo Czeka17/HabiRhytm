@@ -1,0 +1,15 @@
+.Item{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    background: var(--accent-color);
+    margin: 1em;
+    padding: 0.5em;
+    border-radius: 20px;
+    color: white;
+}
+.addiction{
+    width: 300px;
+    padding: 2em 1em;
+}
