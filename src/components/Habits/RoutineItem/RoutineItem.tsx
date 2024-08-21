@@ -3,7 +3,7 @@ import { useStore } from '../../../store/HabitsStore';
 import { getTimeDifference } from '../../../lib/lib';
 import classes from './RoutineItem.module.css'
 interface HabitItemProps {
-    habit: { id: number, habitName: string, HabitType: string, time?:Date, goal?:{min:number,max:number},data?: { date: string, value: number }[]; };
+    habit: { id: number, habitName: string, HabitType: string, time?:Date,Unit?:string, goal?:{min:number,max:number},data?: { date: string, value: number,mood?:string }[]; };
 }
 
 function RoutineItem({ habit }: HabitItemProps) {

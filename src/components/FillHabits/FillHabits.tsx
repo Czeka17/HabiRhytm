@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom";
 import { useStore } from "../../store/HabitsStore";
 import { useState } from "react";
-
+import HappyIcon from '../../static/Happy.svg'
+import SadIcon from '../../static/Sad.svg'
+import AngryIcon from '../../static/Angry.svg'
+import CalmIcon from '../../static/Calm.svg'
 function FillHabits(){
     
     const { items, updateHabitData } = useStore((state) => ({
@@ -16,6 +19,7 @@ function FillHabits(){
     const [values, setValues] = useState<number[]>(new Array(habits.length).fill(''));
     const [moodValue, setMoodValue] = useState<number | ''>('');
     const [isMoodStep, setIsMoodStep] = useState(false); 
+    const [selectedMood,setSelectedMood] = useState('')
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (isMoodStep) {
@@ -30,8 +34,8 @@ function FillHabits(){
     const handleNext = () => {
         if (isMoodStep) {
             const today = new Date().toLocaleDateString('pl-PL', { day: '2-digit', month: '2-digit' });
-            if (mood) {
-                updateHabitData(mood.id, { date: today, value: moodValue as number });
+            if (mood && selectedMood !== '') {
+                updateHabitData(mood.id, { date: today, value: moodValue as number, mood:selectedMood });
             }
         } else if (currentIndex < habits.length - 1) {
             setCurrentIndex(currentIndex + 1);
@@ -61,6 +65,10 @@ function FillHabits(){
         ) : (
             <>
                 <h2>Fill Data for Mood</h2>
+                <img src={HappyIcon} onClick={() => setSelectedMood('happy')}/>
+                <img src={SadIcon} onClick={() => setSelectedMood('sad')}/>
+                <img src={AngryIcon} onClick={() => setSelectedMood('angry')}/>
+                <img src={CalmIcon} onClick={() => setSelectedMood('calm')}/>
                 <input
                     type="number"
                     value={moodValue}
