@@ -1,3 +1,4 @@
+import AiGeneratedChart from "../AiGeneratedChart/AiGeneratedChart";
 import HabitSummaryItem from "../HabitSummaryItem/HabitSummaryItem";
 import classes from './HabitSummaryList.module.css'
 interface Habit {
@@ -27,6 +28,7 @@ function HabitSummaryList({items}:HabitSummaryListProps) {
 						.map((habit, index) => (
 							<HabitSummaryItem item={habit}/>
 						))}
+						<AiGeneratedChart/>
 				</ul>
 			</div>
 		</div>

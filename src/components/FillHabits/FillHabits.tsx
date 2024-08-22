@@ -5,6 +5,8 @@ import HappyIcon from '../../static/Happy.svg'
 import SadIcon from '../../static/Sad.svg'
 import AngryIcon from '../../static/Angry.svg'
 import CalmIcon from '../../static/Calm.svg'
+import classes from './FillHabits.module.css'
+import Button from "../../UI/Button/Button";
 function FillHabits(){
     
     const { items, updateHabitData } = useStore((state) => ({
@@ -53,38 +55,40 @@ function FillHabits(){
     return (
         <div>
         {!isMoodStep ? (
-            <>
+            <div className={classes.fillBox}>
                 <h2>Fill Data for {habits[currentIndex].habitName}</h2>
                 <input
+                className={classes.input}
                     type="number"
                     value={values[currentIndex]}
                     onChange={handleChange}
                     placeholder={`Enter value for ${habits[currentIndex].habitName}`}
                 />
-            </>
+            </div>
         ) : (
-            <>
+            <div className={classes.MoodSelectionBox}>
                 <h2>Fill Data for Mood</h2>
-                <img src={HappyIcon} onClick={() => setSelectedMood('happy')}/>
-                <img src={SadIcon} onClick={() => setSelectedMood('sad')}/>
-                <img src={AngryIcon} onClick={() => setSelectedMood('angry')}/>
-                <img src={CalmIcon} onClick={() => setSelectedMood('calm')}/>
+               <div>
+               <img className={`${classes.MoodImg} ${selectedMood === 'happy' && classes.selectedMood}`} src={HappyIcon} onClick={() => setSelectedMood('happy')}/>
+                <img className={`${classes.MoodImg} ${selectedMood === 'sad' && classes.selectedMood}`} src={SadIcon} onClick={() => setSelectedMood('sad')}/>
+                <img className={`${classes.MoodImg} ${selectedMood === 'angry' && classes.selectedMood}`} src={AngryIcon} onClick={() => setSelectedMood('angry')}/>
+                <img className={`${classes.MoodImg} ${selectedMood === 'calm' && classes.selectedMood}`} src={CalmIcon} onClick={() => setSelectedMood('calm')}/>
+               </div>
                 <input
                     type="number"
                     value={moodValue}
                     onChange={handleChange}
                     placeholder="Enter your Mood value"
                 />
-            </>
+            </div>
         )}
         {isMoodStep ? (
             <Link to='/summary'>
-                <button onClick={handleNext}>Finish</button>
+                <Button onClick={handleNext} name="Finish" />
             </Link>
         ) : (
-            <button onClick={handleNext}>
-                {currentIndex < habits.length - 1 ? 'Next' : 'Next (Mood)'}
-            </button>
+           
+            <Button onClick={handleNext} name={currentIndex < habits.length - 1 ? 'Next' : 'Next (Mood)'}/>
         )}
     </div>
     );

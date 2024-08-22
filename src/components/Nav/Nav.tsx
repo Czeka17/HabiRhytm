@@ -16,6 +16,9 @@ function Nav() {
 					<NavLink className={classes.link} to='/summary'>Summary</NavLink>
 				</li>
 				<li>
+					<NavLink className={classes.link} to='/challanges'>Challanges</NavLink>
+				</li>
+				<li>
 					<NavLink className={classes.link} to='/rewards'>Rewards</NavLink>
 				</li>
 			</ul>

@@ -57,7 +57,7 @@ const DUMMY_ITEMS = [
 		id: 5,
 		habitName: "temperature outside",
 		HabitType: "Habit",
-		Unit: "hours",
+		Unit: "celcius",
 		data: [
 			{ date: "15.08", value: 27 },
 			{ date: "16.08", value: 30 },

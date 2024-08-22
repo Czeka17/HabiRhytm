@@ -77,6 +77,7 @@ function HabitSummaryItem({ item }: HabitsSummaryItemProps) {
                 } 
                 : 'circle',
                 pointRadius: item.HabitType === 'Mood' ? 10 : 5,
+                tension:0.4
             },
             ...(item.goal?.min !== undefined ? [{
                 label: item.HabitType === 'Mood' ? 'Bad mood' : 'Min goal',
@@ -93,7 +94,8 @@ function HabitSummaryItem({ item }: HabitsSummaryItemProps) {
                 backgroundColor: 'rgba(255, 159, 64, 0.2)',
                 borderDash: [5, 5],
                 fill: false,
-            }] : [])
+            }] : []),
+            
         ]
     };
     
@@ -113,7 +115,7 @@ function HabitSummaryItem({ item }: HabitsSummaryItemProps) {
                        if(mood){
                         return `Happiness: ${value}, Mood: ${mood || 'N/A'}`;
                        }if(!mood){
-                        return `Happiness: ${value}`;
+                        return `${item.Unit} ${value}`;
                        }
                     }
                 }

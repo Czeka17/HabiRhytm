@@ -1,0 +1,41 @@
+
+.MoodImg{
+    width: 75px;
+    height: 75px;
+    filter: grayscale(100%);
+    transition: 0.3s all;
+    cursor: pointer;
+}
+.MoodImg:hover{
+    filter: grayscale(0%);
+    transform: scale(1.1);
+}
+.selectedMood{
+    filter: grayscale(0%);
+}
+.MoodSelectionBox{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.fillBox{
+    padding: 1em;
+    padding-top: 3em;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    max-width: 900px;
+    margin: 0 auto;
+}
+.fillBox h2{
+    margin: 2em;
+    font-size: 2.2rem;
+}
+.input{
+    width: 100%;
+    padding: 1em;
+    border-radius: 20px;
+}
