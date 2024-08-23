@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useStore } from '../../store/HabitsStore';
+import { useStore } from '../../context/HabitsContext';
 import Button from '../../UI/Button/Button';
 import HabitModal from '../../components/HabitModal/HabitModal';
 
@@ -28,44 +28,37 @@ const units = [
 function HabitModalContainer() {
   const {
     ModalIsOpen,
-    EditHabitHandler,
-    SelectedHabitId,
+    EditItemHandler,
+    SelectedItemId,
     ToggleModal,
-    AddHabitHandler,
+    AddItemHandler,
     SelectItem,
-  } = useStore((state) => ({
-    ModalIsOpen: state.ModalIsOpen,
-    EditHabitHandler: state.EditItemHandler,
-    SelectedHabitId: state.SelectedItemId,
-    SelectItem: state.SelectItem,
-    ToggleModal: state.ToggleModal,
-    AddHabitHandler: state.AddItemHandler,
-  }));
+  } = useStore();
   const [state, setState] = useState({ is: `selection` } as Transaction);
   const [habitName, setHabitName] = useState<string>(
-    SelectedHabitId?.habitName || ``,
+    SelectedItemId?.habitName || ``,
   );
   const [isHabit, setIsHabit] = useState(true);
   const [unit, setUnit] = useState(`hours`);
   const [minValue, setMinValue] = useState<number>(
-    SelectedHabitId?.goal?.min || 0,
+    SelectedItemId?.goal?.min || 0,
   );
   const [maxValue, setMaxValue] = useState<number>(
-    SelectedHabitId?.goal?.max || 0,
+    SelectedItemId?.goal?.max || 0,
   );
   const EditHabitInputRef = useRef<HTMLInputElement | null>(null);
-  console.log(SelectedHabitId);
+  console.log(SelectedItemId);
 
   const habitType = isHabit ? `Habit` : `Addiction`;
 
   useEffect(() => {
-    if (SelectedHabitId) {
-      setHabitName(SelectedHabitId.habitName);
-      setMinValue(SelectedHabitId.goal?.min || 0);
-      setMaxValue(SelectedHabitId.goal?.max || 0);
-      setIsHabit(SelectedHabitId.HabitType === `Habit`);
+    if (SelectedItemId) {
+      setHabitName(SelectedItemId.habitName);
+      setMinValue(SelectedItemId.goal?.min || 0);
+      setMaxValue(SelectedItemId.goal?.max || 0);
+      setIsHabit(SelectedItemId.HabitType === `Habit`);
     }
-  }, [SelectedHabitId]);
+  }, [SelectedItemId]);
   useEffect(() => {
     if (ModalIsOpen && EditHabitInputRef.current) {
       EditHabitInputRef.current.focus();
@@ -84,7 +77,7 @@ function HabitModalContainer() {
   function AddHabit() {
     console.log(habitName, minValue, maxValue);
     if (habitName !== null && isHabit) {
-      AddHabitHandler({
+      AddItemHandler({
         id: Date.now() + Math.floor(Math.random() * 1000),
         HabitType: habitType,
         habitName,
@@ -93,7 +86,7 @@ function HabitModalContainer() {
       });
     }
     if (habitName !== null && !isHabit) {
-      AddHabitHandler({
+      AddItemHandler({
         id: Date.now() + Math.floor(Math.random() * 1000),
         HabitType: habitType,
         habitName,
@@ -109,7 +102,7 @@ function HabitModalContainer() {
     setMaxValue(Number(event.target.value) || 0);
   };
   const handleSave = () => {
-    EditHabitHandler(SelectedHabitId!.id, habitName, minValue, maxValue);
+    EditItemHandler(SelectedItemId!.id, habitName, minValue, maxValue);
     SelectItem(null);
     ToggleModal();
   };
@@ -148,7 +141,7 @@ function HabitModalContainer() {
 
   let content = null;
 
-  if (SelectedHabitId !== null && state.is === `selection`) {
+  if (SelectedItemId !== null && state.is === `selection`) {
     content = (
       <div>
         <input type="text" value={habitName} onChange={handleInputChange} />
@@ -170,7 +163,7 @@ function HabitModalContainer() {
     );
   }
 
-  if (state.is === `selection` && SelectedHabitId === null) {
+  if (state.is === `selection` && SelectedItemId === null) {
     content = (
       <div>
         <button onClick={() => HabitSelectionHandler(true)}>Habit</button>

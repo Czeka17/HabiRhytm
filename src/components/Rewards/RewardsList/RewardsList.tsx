@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import RewardItem from '../RewardItem/RewardItem';
 import classes from './RewardsList.module.css';
-import { useStore } from '../../../store/HabitsStore';
+import { useStore } from '../../../context/HabitsContext';
+
 const DUMMY_REWARDS = [
   { name: `Keep your streak for a week`, condition: `streak-week` },
   { name: `Keep your streak for a month`, condition: `streak-month` },
@@ -29,9 +30,7 @@ const DUMMY_REWARDS = [
   { name: `Complete 25 challenges`, condition: `twenty-five-challenges` },
 ];
 function RewardsList() {
-  const { items } = useStore((state) => ({
-    items: state.Items,
-  }));
+  const { Items } = useStore();
   const [rewards, setRewards] = useState<any[]>([]);
 
   // zmienic na state
@@ -94,7 +93,7 @@ function RewardsList() {
     };
 
     const checkAddiction = (duration: number) => {
-      const addictions = items.filter((item) => item.HabitType === `Addiction`);
+      const addictions = Items.filter((item) => item.HabitType === `Addiction`);
       const now = new Date().getTime();
 
       return addictions.some((item) => {
@@ -111,7 +110,7 @@ function RewardsList() {
     };
 
     checkRewards();
-  }, [items]);
+  }, [Items]);
   return (
     <div>
       <ul className={classes.RewardList}>

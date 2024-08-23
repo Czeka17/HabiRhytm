@@ -1,4 +1,4 @@
-import { useStore } from '../../../store/HabitsStore';
+import { useStore } from '../../../context/HabitsContext';
 import { getTimeDifference } from '../../../lib/lib';
 import editSVG from '../../../static/edit.svg';
 import deleteSVG from '../../../static/delete.svg';
@@ -17,14 +17,8 @@ interface HabitItemProps {
 }
 
 function RoutineItem({ habit }: HabitItemProps) {
-  const { ToggleModal, DeleteHabitHandler, ResetAddictionTimer, SelectItem } =
-    useStore((state) => ({
-      ToggleModal: state.ToggleModal,
-      DeleteHabitHandler: state.DeleteItemHandler,
-      ResetAddictionTimer: state.ResetAddictionTimer,
-      SelectItem: state.SelectItem,
-    }));
-
+  const { ToggleModal, DeleteItemHandler, ResetAddictionTimer, SelectItem } =
+    useStore();
   const handleEditClick = () => {
     SelectItem(habit.id);
 
@@ -52,7 +46,7 @@ function RoutineItem({ habit }: HabitItemProps) {
         </button>
         <button
           className={classes.button}
-          onClick={() => DeleteHabitHandler(habit.id)}
+          onClick={() => DeleteItemHandler(habit.id)}
         >
           <img src={deleteSVG} />
         </button>

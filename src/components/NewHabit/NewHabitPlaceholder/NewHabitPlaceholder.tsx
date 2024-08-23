@@ -1,9 +1,7 @@
-import { useStore } from '../../../store/HabitsStore';
+import { useStore } from '../../../context/HabitsContext';
 import classes from '../../Habits/RoutineItem/RoutineItem.module.css';
 function NewHabitPlaceholder() {
-  const { ToggleModal } = useStore((state) => ({
-    ToggleModal: state.ToggleModal,
-  }));
+  const { ToggleModal } = useStore();
 
   return (
     <li className={classes.Item}>

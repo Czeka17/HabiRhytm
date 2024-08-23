@@ -1,6 +1,7 @@
 export function getTimeDifference(date: Date): string {
   const now = new Date();
-  const difference = now.getTime() - date.getTime();
+  const dateOfItem = new Date(date);
+  const difference = now.getTime() - dateOfItem.getTime();
 
   const days = Math.floor(difference / (1000 * 60 * 60 * 24));
   const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);

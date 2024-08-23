@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { useStore } from '../../store/HabitsStore';
+import { useStore } from '../../context/HabitsContext';
 import { useState } from 'react';
 import HappyIcon from '../../static/Happy.svg';
 import SadIcon from '../../static/Sad.svg';
@@ -8,13 +8,10 @@ import CalmIcon from '../../static/Calm.svg';
 import classes from './FillHabits.module.css';
 import Button from '../../UI/Button/Button';
 function FillHabits() {
-  const { items, updateHabitData } = useStore((state) => ({
-    items: state.Items,
-    updateHabitData: state.UpdateHabitData,
-  }));
-  const habits = items.filter((habit) => habit.HabitType === `Habit`);
+  const { Items, UpdateHabitData } = useStore();
+  const habits = Items.filter((habit) => habit.HabitType === `Habit`);
 
-  const mood = items.find((item) => item.HabitType === `Mood`);
+  const mood = Items.find((item) => item.HabitType === `Mood`);
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [values, setValues] = useState<number[]>(
@@ -41,7 +38,7 @@ function FillHabits() {
         month: `2-digit`,
       });
       if (mood && selectedMood !== ``) {
-        updateHabitData(mood.id, {
+        UpdateHabitData(mood.id, {
           date: today,
           value: moodValue as number,
           mood: selectedMood,
@@ -56,7 +53,7 @@ function FillHabits() {
       });
 
       habits.forEach((habit, index) => {
-        updateHabitData(habit.id, { date: today, value: values[index] });
+        UpdateHabitData(habit.id, { date: today, value: values[index] });
       });
       setIsMoodStep(true);
     }
