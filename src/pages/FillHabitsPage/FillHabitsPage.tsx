@@ -1,7 +1,6 @@
-import FillHabits from "../../components/FillHabits/FillHabits";
+import FillHabits from '../../components/FillHabits/FillHabits';
 
-function FillHabitsPage(){
-
-    return <FillHabits />
+function FillHabitsPage() {
+  return <FillHabits />;
 }
 export default FillHabitsPage;

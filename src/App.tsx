@@ -4,7 +4,7 @@ import PagesRouter from './pages/PagesRouter';
 function App() {
   return (
     <div className="App">
-      <PagesRouter/>
+      <PagesRouter />
     </div>
   );
 }

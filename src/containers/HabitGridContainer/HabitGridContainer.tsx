@@ -1,6 +1,6 @@
-import HabitsGrid from "../../components/Habits/HabitsList/HabitsList";
+import HabitsGrid from '../../components/Habits/HabitsList/HabitsList';
 
-function HabitGridContainer(){
-    return <HabitsGrid />
+function HabitGridContainer() {
+  return <HabitsGrid />;
 }
 export default HabitGridContainer;
