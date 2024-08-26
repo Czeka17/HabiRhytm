@@ -1,7 +1,7 @@
 import RoutineItem from '../RoutineItem/RoutineItem';
 import NewHabitPlaceholder from '../../NewHabit/NewHabitPlaceholder/NewHabitPlaceholder';
 import { Link } from 'react-router-dom';
-import Button from '../../../UI/Button/Button';
+import { Button } from '../../../UI/Button/Button';
 import List from '../../../UI/List/List';
 import HabitModalContainer from '../../../containers/HabitModalContainer/HabitModalContainer';
 import { useStore } from '../../../context/HabitsContext';
@@ -28,7 +28,7 @@ function HabitsGrid() {
       </List>
 
       <Link to="/fill">
-        <Button name={`fill your tasks`} />
+        <Button>fill your tasks</Button>
       </Link>
       <HabitModalContainer />
     </div>

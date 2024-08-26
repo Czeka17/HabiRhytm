@@ -38,6 +38,10 @@ interface Store {
     newData: { date: string; value: number; mood?: string },
   ) => void;
   ResetAddictionTimer: (id: number) => void;
+  EditHabitData: (
+    habitId: number,
+    newData: { date: string; value: number; mood?: string },
+  ) => void;
 }
 const LOCAL_STORAGE_KEY = `habits`;
 
@@ -76,6 +80,7 @@ export function HabitsProvider({ children }: HabitsProviderProps) {
 
   useEffect(() => {
     saveItems(items);
+    console.log(items);
   }, [items]);
 
   const selectItem = (id: number | null) => {
@@ -118,6 +123,26 @@ export function HabitsProvider({ children }: HabitsProviderProps) {
     );
   };
 
+  const EditHabitData = (
+    habitId: number,
+    newData: { date: string; value: number; mood?: string },
+  ) => {
+    setItems(
+      items.map((item) =>
+        item.id === habitId
+          ? {
+              ...item,
+              data: item.data?.map((dataItem) =>
+                dataItem.date === newData.date
+                  ? { ...dataItem, ...newData }
+                  : dataItem,
+              ) || [newData],
+            }
+          : item,
+      ),
+    );
+  };
+
   const toggleModal = () => {
     setModalIsOpen(!modalIsOpen);
   };
@@ -143,6 +168,7 @@ export function HabitsProvider({ children }: HabitsProviderProps) {
         ToggleModal: toggleModal,
         UpdateHabitData: updateHabitData,
         ResetAddictionTimer: resetAddictionTimer,
+        EditHabitData,
       }}
     >
       {children}

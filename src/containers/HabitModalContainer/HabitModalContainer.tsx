@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useStore } from '../../context/HabitsContext';
-import Button from '../../UI/Button/Button';
+import { Button } from '../../UI/Button/Button';
 import HabitModal from '../../components/HabitModal/HabitModal';
 
 type Transaction =

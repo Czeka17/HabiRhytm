@@ -1,25 +1,33 @@
 import { Link } from 'react-router-dom';
 import { useStore } from '../../context/HabitsContext';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import HappyIcon from '../../static/Happy.svg';
 import SadIcon from '../../static/Sad.svg';
 import AngryIcon from '../../static/Angry.svg';
 import CalmIcon from '../../static/Calm.svg';
 import classes from './FillHabits.module.css';
-import Button from '../../UI/Button/Button';
+import { Button } from '../../UI/Button/Button';
+import Input from '../../UI/Input/Input';
+import Calendar from '../../UI/Calendar/Calendar';
+
 function FillHabits() {
-  const { Items, UpdateHabitData } = useStore();
+  const { Items, UpdateHabitData, EditHabitData } = useStore();
   const habits = Items.filter((habit) => habit.HabitType === `Habit`);
 
   const mood = Items.find((item) => item.HabitType === `Mood`);
 
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [date, setDate] = useState<Date | undefined>(new Date());
   const [values, setValues] = useState<number[]>(
     new Array(habits.length).fill(``),
   );
   const [moodValue, setMoodValue] = useState<number | ``>(``);
   const [isMoodStep, setIsMoodStep] = useState(false);
   const [selectedMood, setSelectedMood] = useState(``);
+
+  useEffect(() => {
+    console.log(date);
+  }, [date]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (isMoodStep) {
@@ -32,40 +40,74 @@ function FillHabits() {
   };
 
   const handleNext = () => {
+    const selectedDate = date!.toLocaleDateString(`pl-PL`, {
+      day: `2-digit`,
+      month: `2-digit`,
+    });
+
+    const habit = habits[currentIndex];
+    const habitItem = Items.find((item) => item.id === habit.id);
+
+    if (!habitItem) {
+      return;
+    }
+
+    const existingData = habitItem.data?.find(
+      (dataItem) => dataItem.date === selectedDate,
+    );
+
+    const updateData = {
+      date: selectedDate,
+      value: values[currentIndex],
+    };
+
     if (isMoodStep) {
-      const today = new Date().toLocaleDateString(`pl-PL`, {
-        day: `2-digit`,
-        month: `2-digit`,
-      });
       if (mood && selectedMood !== ``) {
-        UpdateHabitData(mood.id, {
-          date: today,
+        const moodData = {
+          date: selectedDate,
           value: moodValue as number,
           mood: selectedMood,
-        });
-      }
-    } else if (currentIndex < habits.length - 1) {
-      setCurrentIndex(currentIndex + 1);
-    } else {
-      const today = new Date().toLocaleDateString(`pl-PL`, {
-        day: `2-digit`,
-        month: `2-digit`,
-      });
+        };
 
-      habits.forEach((habit, index) => {
-        UpdateHabitData(habit.id, { date: today, value: values[index] });
-      });
-      setIsMoodStep(true);
+        if (existingData) {
+          EditHabitData(mood.id, moodData);
+        } else {
+          UpdateHabitData(mood.id, moodData);
+        }
+        setIsMoodStep(false);
+      }
+    } else {
+      if (currentIndex === habits.length - 1) {
+        if (existingData) {
+          EditHabitData(habit.id, updateData);
+        } else {
+          UpdateHabitData(habit.id, updateData);
+        }
+        setIsMoodStep(true);
+      } else {
+        if (existingData) {
+          EditHabitData(habit.id, updateData);
+        } else {
+          UpdateHabitData(habit.id, updateData);
+        }
+        setCurrentIndex(currentIndex + 1);
+      }
     }
   };
 
   return (
     <div>
+      <Calendar
+        mode="single"
+        selected={date}
+        onSelect={setDate}
+        className="rounded-md border"
+      />
+      <p>Selected Date: {date?.toLocaleDateString()}</p>
       {!isMoodStep ? (
         <div className={classes.fillBox}>
           <h2>Fill Data for {habits[currentIndex].habitName}</h2>
-          <input
-            className={classes.input}
+          <Input
             type="number"
             value={values[currentIndex]}
             onChange={handleChange}
@@ -97,7 +139,7 @@ function FillHabits() {
               onClick={() => setSelectedMood(`calm`)}
             />
           </div>
-          <input
+          <Input
             type="number"
             value={moodValue}
             onChange={handleChange}
@@ -107,13 +149,12 @@ function FillHabits() {
       )}
       {isMoodStep ? (
         <Link to="/summary">
-          <Button onClick={handleNext} name="Finish" />
+          <Button onClick={handleNext}>Finish</Button>
         </Link>
       ) : (
-        <Button
-          onClick={handleNext}
-          name={currentIndex < habits.length - 1 ? `Next` : `Next (Mood)`}
-        />
+        <Button onClick={handleNext}>
+          {currentIndex < habits.length - 1 ? `Next` : `Next (Mood)`}
+        </Button>
       )}
     </div>
   );
