@@ -5,25 +5,14 @@ import {
   ReactNode,
   useEffect,
 } from 'react';
-
-interface HabitAddictionItem {
-  id: number;
-  habitName: string;
-  HabitType: string;
-  time?: Date;
-  Unit?: string;
-  goal?: { min: number; max: number };
-  data?: { date: string; value: number; mood?: string }[];
-}
+import { updateHabitData, editHabitData } from './HabitsActions';
+import { HabitAddictionItem } from '../types/types';
 interface HabitsProviderProps {
   children: ReactNode;
 }
 
 interface Store {
   Items: HabitAddictionItem[];
-  ModalIsOpen: boolean;
-  SelectedItemId: HabitAddictionItem | null;
-  SelectItem: (id: number | null) => void;
   AddItemHandler: (newItem: HabitAddictionItem) => void;
   EditItemHandler: (
     id: number,
@@ -32,16 +21,16 @@ interface Store {
     max: number,
   ) => void;
   DeleteItemHandler: (id: number) => void;
-  ToggleModal: () => void;
-  UpdateHabitData: (
+  handleUpdateHabitData: (
     habitId: number,
     newData: { date: string; value: number; mood?: string },
   ) => void;
   ResetAddictionTimer: (id: number) => void;
-  EditHabitData: (
+  handleEditHabitData: (
     habitId: number,
     newData: { date: string; value: number; mood?: string },
   ) => void;
+  addChallangeHandler: (habit: HabitAddictionItem) => void;
 }
 const LOCAL_STORAGE_KEY = `habits`;
 
@@ -74,18 +63,11 @@ const HabitsContext = createContext<Store | undefined>(undefined);
 
 export function HabitsProvider({ children }: HabitsProviderProps) {
   const [items, setItems] = useState<HabitAddictionItem[]>(loadItems());
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [selectedItemId, setSelectedItemId] =
-    useState<HabitAddictionItem | null>(null);
 
   useEffect(() => {
     saveItems(items);
     console.log(items);
   }, [items]);
-
-  const selectItem = (id: number | null) => {
-    setSelectedItemId(items.find((item) => item.id === id) || null);
-  };
 
   const addItemHandler = (newItem: HabitAddictionItem) => {
     setItems([...items, newItem]);
@@ -110,41 +92,18 @@ export function HabitsProvider({ children }: HabitsProviderProps) {
     setItems(items.filter((item) => item.id !== id));
   };
 
-  const updateHabitData = (
+  const handleUpdateHabitData = (
     habitId: number,
     newData: { date: string; value: number; mood?: string },
   ) => {
-    setItems(
-      items.map((item) =>
-        item.id === habitId
-          ? { ...item, data: [...(item.data || []), newData] }
-          : item,
-      ),
-    );
+    setItems(updateHabitData(items, habitId, newData));
   };
 
-  const EditHabitData = (
+  const handleEditHabitData = (
     habitId: number,
     newData: { date: string; value: number; mood?: string },
   ) => {
-    setItems(
-      items.map((item) =>
-        item.id === habitId
-          ? {
-              ...item,
-              data: item.data?.map((dataItem) =>
-                dataItem.date === newData.date
-                  ? { ...dataItem, ...newData }
-                  : dataItem,
-              ) || [newData],
-            }
-          : item,
-      ),
-    );
-  };
-
-  const toggleModal = () => {
-    setModalIsOpen(!modalIsOpen);
+    setItems(editHabitData(items, habitId, newData));
   };
 
   const resetAddictionTimer = (id: number) => {
@@ -155,20 +114,21 @@ export function HabitsProvider({ children }: HabitsProviderProps) {
     );
   };
 
+  const addChallangeHandler = (habit: HabitAddictionItem) => {
+    setItems([...items, habit]);
+  };
+
   return (
     <HabitsContext.Provider
       value={{
         Items: items,
-        ModalIsOpen: modalIsOpen,
-        SelectedItemId: selectedItemId,
-        SelectItem: selectItem,
         AddItemHandler: addItemHandler,
         EditItemHandler: editItemHandler,
         DeleteItemHandler: deleteItemHandler,
-        ToggleModal: toggleModal,
-        UpdateHabitData: updateHabitData,
+        handleUpdateHabitData,
         ResetAddictionTimer: resetAddictionTimer,
-        EditHabitData,
+        handleEditHabitData,
+        addChallangeHandler,
       }}
     >
       {children}

@@ -11,7 +11,7 @@ import Input from '../../UI/Input/Input';
 import Calendar from '../../UI/Calendar/Calendar';
 
 function FillHabits() {
-  const { Items, UpdateHabitData, EditHabitData } = useStore();
+  const { Items, handleUpdateHabitData, handleEditHabitData } = useStore();
   const habits = Items.filter((habit) => habit.HabitType === `Habit`);
 
   const mood = Items.find((item) => item.HabitType === `Mood`);
@@ -70,25 +70,25 @@ function FillHabits() {
         };
 
         if (existingData) {
-          EditHabitData(mood.id, moodData);
+          handleEditHabitData(mood.id, moodData);
         } else {
-          UpdateHabitData(mood.id, moodData);
+          handleUpdateHabitData(mood.id, moodData);
         }
         setIsMoodStep(false);
       }
     } else {
       if (currentIndex === habits.length - 1) {
         if (existingData) {
-          EditHabitData(habit.id, updateData);
+          handleEditHabitData(habit.id, updateData);
         } else {
-          UpdateHabitData(habit.id, updateData);
+          handleUpdateHabitData(habit.id, updateData);
         }
         setIsMoodStep(true);
       } else {
         if (existingData) {
-          EditHabitData(habit.id, updateData);
+          handleEditHabitData(habit.id, updateData);
         } else {
-          UpdateHabitData(habit.id, updateData);
+          handleUpdateHabitData(habit.id, updateData);
         }
         setCurrentIndex(currentIndex + 1);
       }

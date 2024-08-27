@@ -7,7 +7,7 @@ interface AddictionsSummaryItemProps {
     habitName: string;
     HabitType: string;
     time?: Date;
-    goal?: { min: number; max: number };
+    goal?: { min: number; max?: number };
   };
 }
 function AddictionsSummaryItem({ item }: AddictionsSummaryItemProps) {

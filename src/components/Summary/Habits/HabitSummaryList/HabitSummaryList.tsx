@@ -1,20 +1,10 @@
 import AiGeneratedChart from '../AiGeneratedChart/AiGeneratedChart';
 import HabitSummaryItem from '../HabitSummaryItem/HabitSummaryItem';
 import classes from './HabitSummaryList.module.css';
-interface Habit {
-  id: number;
-  habitName: string;
-  HabitType: string;
-  time?: Date;
-  Unit?: string;
-  goal?: {
-    min: number;
-    max: number;
-  };
-  data?: { date: string; value: number; mood?: string }[];
-}
+import { HabitAddictionItem } from '../../../../types/types';
+
 interface HabitSummaryListProps {
-  items: Habit[];
+  items: HabitAddictionItem[];
 }
 function HabitSummaryList({ items }: HabitSummaryListProps) {
   const Mood = items.find((item) => item.HabitType === `Mood`);

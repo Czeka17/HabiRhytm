@@ -1,6 +1,7 @@
 import HabitSummaryChart from '../HabitSummaryChart/HabitSummaryChart';
 import { Chart, PointElement, Tooltip, Legend } from 'chart.js';
 import classes from './HabitSummaryItem.module.css';
+import { HabitAddictionItem } from '../../../../types/types';
 import HappyIcon from '../../../../static/Happy.svg';
 import SadIcon from '../../../../static/Sad.svg';
 import AngryIcon from '../../../../static/Angry.svg';
@@ -8,18 +9,8 @@ import CalmIcon from '../../../../static/Calm.svg';
 
 Chart.register(PointElement, Tooltip, Legend);
 
-interface Habit {
-  id: number;
-  habitName: string;
-  HabitType: string;
-  time?: Date;
-  Unit?: string;
-  goal?: { min: number; max: number };
-  data?: { date: string; value: number; mood?: string }[];
-}
-
 interface HabitsSummaryItemProps {
-  item: Habit;
+  item: HabitAddictionItem;
 }
 
 export function generateLastWeekDates(): string[] {

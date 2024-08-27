@@ -4,25 +4,19 @@ import editSVG from '../../../static/edit.svg';
 import deleteSVG from '../../../static/delete.svg';
 import resetSVG from '../../../static/reset.svg';
 import classes from './RoutineItem.module.css';
+import { HabitAddictionItem } from '../../../types/types';
 interface HabitItemProps {
-  habit: {
-    id: number;
-    habitName: string;
-    HabitType: string;
-    time?: Date;
-    Unit?: string;
-    goal?: { min: number; max: number };
-    data?: { date: string; value: number; mood?: string }[];
-  };
+  habit: HabitAddictionItem;
+  OnOpen: () => void;
+  OnSelect: (id: number | null) => void;
 }
 
-function RoutineItem({ habit }: HabitItemProps) {
-  const { ToggleModal, DeleteItemHandler, ResetAddictionTimer, SelectItem } =
-    useStore();
+function RoutineItem({ habit, OnOpen, OnSelect }: HabitItemProps) {
+  const { DeleteItemHandler, ResetAddictionTimer } = useStore();
   const handleEditClick = () => {
-    SelectItem(habit.id);
+    OnSelect(habit.id);
 
-    ToggleModal();
+    OnOpen();
   };
 
   const timeDifference = habit.time ? getTimeDifference(habit.time) : null;

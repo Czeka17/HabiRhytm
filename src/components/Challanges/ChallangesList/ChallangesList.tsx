@@ -1,16 +1,9 @@
 import List from '../../../UI/List/List';
 import ChallangeItem from '../ChallangeItem/ChallangeItem';
+import { useStore } from '../../../context/HabitsContext';
+import { HabitAddictionItem } from '../../../types/types';
 
-interface challange {
-  id: number;
-  habitName: string;
-  HabitType: string;
-  time?: Date;
-  Unit?: string;
-  goal?: { min?: number; max?: number };
-  data?: { date: string; value: number; mood?: string }[];
-}
-const DUMMY_CHALLANGES: challange[] = [
+const DUMMY_CHALLANGES: HabitAddictionItem[] = [
   {
     id: 5234,
     habitName: `Dont drink alcohol for a week`,
@@ -27,11 +20,16 @@ const DUMMY_CHALLANGES: challange[] = [
 ];
 
 function ChallangesList() {
+  const { addChallangeHandler } = useStore();
   return (
     <div>
       <List>
         {DUMMY_CHALLANGES.map((chall, index) => (
-          <ChallangeItem challange={chall} key={index} />
+          <ChallangeItem
+            challange={chall}
+            key={index}
+            OnAddChallange={addChallangeHandler}
+          />
         ))}
       </List>
     </div>

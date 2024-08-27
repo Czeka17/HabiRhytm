@@ -1,17 +1,8 @@
 import List from '../../../../UI/List/List';
 import AddictionsSummaryItem from '../AddictionsSummaryItem/AddictionsSummaryItem';
-interface Habit {
-  id: number;
-  habitName: string;
-  HabitType: string;
-  time?: Date;
-  goal?: {
-    min: number;
-    max: number;
-  };
-}
+import { HabitAddictionItem } from '../../../../types/types';
 interface AddictionsSummaryListProps {
-  items: Habit[];
+  items: HabitAddictionItem[];
 }
 function AddictionsSummaryList({ items }: AddictionsSummaryListProps) {
   return (

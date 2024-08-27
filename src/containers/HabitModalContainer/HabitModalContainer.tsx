@@ -2,6 +2,13 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useStore } from '../../context/HabitsContext';
 import { Button } from '../../UI/Button/Button';
 import HabitModal from '../../components/HabitModal/HabitModal';
+import { HabitAddictionItem } from '../../types/types';
+interface HabitModalContainerProps {
+  OnClose: () => void;
+  IsOpen: boolean;
+  SelectedItemId: HabitAddictionItem | null;
+  OnSelect: (id: number | null) => void;
+}
 
 type Transaction =
   | { is: `selection` }
@@ -25,15 +32,13 @@ const units = [
   `happiness`,
 ];
 
-function HabitModalContainer() {
-  const {
-    ModalIsOpen,
-    EditItemHandler,
-    SelectedItemId,
-    ToggleModal,
-    AddItemHandler,
-    SelectItem,
-  } = useStore();
+function HabitModalContainer({
+  IsOpen,
+  OnClose,
+  SelectedItemId,
+  OnSelect,
+}: HabitModalContainerProps) {
+  const { EditItemHandler, AddItemHandler } = useStore();
   const [state, setState] = useState({ is: `selection` } as Transaction);
   const [habitName, setHabitName] = useState<string>(
     SelectedItemId?.habitName || ``,
@@ -60,10 +65,10 @@ function HabitModalContainer() {
     }
   }, [SelectedItemId]);
   useEffect(() => {
-    if (ModalIsOpen && EditHabitInputRef.current) {
+    if (IsOpen && EditHabitInputRef.current) {
       EditHabitInputRef.current.focus();
     }
-  }, [ModalIsOpen]);
+  }, [IsOpen]);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setHabitName(event.target.value);
@@ -103,19 +108,19 @@ function HabitModalContainer() {
   };
   const handleSave = () => {
     EditItemHandler(SelectedItemId!.id, habitName, minValue, maxValue);
-    SelectItem(null);
-    ToggleModal();
+    OnSelect(null);
+    OnClose();
   };
 
   const handleClose = () => {
-    ToggleModal();
+    OnClose();
     setHabitName(``);
     setMaxValue(0);
     setMinValue(0);
     setState({ is: `selection` });
   };
 
-  if (!ModalIsOpen) {
+  if (!IsOpen) {
     return null;
   }
 

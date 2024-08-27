@@ -1,12 +1,13 @@
-import { useStore } from '../../../context/HabitsContext';
 import classes from '../../Habits/RoutineItem/RoutineItem.module.css';
-function NewHabitPlaceholder() {
-  const { ToggleModal } = useStore();
 
+interface NewHabitPlaceholderProps {
+  OnOpen: () => void;
+}
+function NewHabitPlaceholder({ OnOpen }: NewHabitPlaceholderProps) {
   return (
     <li className={classes.Item}>
       <p>Add Habit</p>
-      <button onClick={ToggleModal}>Add</button>
+      <button onClick={OnOpen}>Add</button>
     </li>
   );
 }

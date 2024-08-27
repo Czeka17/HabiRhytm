@@ -1,17 +1,14 @@
+import { Button } from '../../../UI/Button/Button';
+import classes from './ChallangeItem.module.css';
+import { HabitAddictionItem } from '../../../types/types';
+
 interface ChallangeItemProps {
-  challange: {
-    id: number;
-    habitName: string;
-    HabitType: string;
-    time?: Date;
-    Unit?: string;
-    goal?: { min?: number; max?: number };
-    data?: { date: string; value: number; mood?: string }[];
-  };
+  challange: HabitAddictionItem;
+  OnAddChallange: (habit: HabitAddictionItem) => void;
 }
-function ChallangeItem({ challange }: ChallangeItemProps) {
+function ChallangeItem({ challange, OnAddChallange }: ChallangeItemProps) {
   return (
-    <li>
+    <li className={classes.ChallangeCard}>
       <p>{challange.habitName}</p>
       <p>{challange.HabitType}</p>
       {challange?.goal?.min && (
@@ -19,6 +16,7 @@ function ChallangeItem({ challange }: ChallangeItemProps) {
           min:{challange.goal.min} {challange.Unit}
         </p>
       )}
+      <Button onClick={() => OnAddChallange(challange)}>Start challange</Button>
     </li>
   );
 }
