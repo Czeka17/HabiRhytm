@@ -1,7 +1,7 @@
 import AiGeneratedChart from '../AiGeneratedChart/AiGeneratedChart';
-import HabitSummaryItem from '../HabitSummaryItem/HabitSummaryItem';
 import classes from './HabitSummaryList.module.css';
 import { HabitAddictionItem } from '../../../../types/types';
+import HabitSummaryItemContainer from '../../../../containers/HabitSummaryItem/HabitSummaryItemContainer';
 
 interface HabitSummaryListProps {
   items: HabitAddictionItem[];
@@ -12,11 +12,11 @@ function HabitSummaryList({ items }: HabitSummaryListProps) {
     <div>
       <div>
         <ul className={classes.HabitSummaryList}>
-          <HabitSummaryItem item={Mood!} />
+          <HabitSummaryItemContainer item={Mood!} />
           {items
             .filter((item) => item.HabitType === `Habit`)
             .map((habit, index) => (
-              <HabitSummaryItem key={index} item={habit} />
+              <HabitSummaryItemContainer key={index} item={habit} />
             ))}
           <AiGeneratedChart />
         </ul>

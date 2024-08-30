@@ -5,10 +5,17 @@ import { HabitAddictionItem } from '../../../types/types';
 interface ChallangeItemProps {
   challange: HabitAddictionItem;
   OnAddChallange: (habit: HabitAddictionItem) => void;
+  IsChallangeTaken: (challangeId: number) => boolean;
 }
-function ChallangeItem({ challange, OnAddChallange }: ChallangeItemProps) {
+function ChallangeItem({
+  challange,
+  OnAddChallange,
+  IsChallangeTaken,
+}: ChallangeItemProps) {
   return (
-    <li className={classes.ChallangeCard}>
+    <li
+      className={`${classes.ChallangeCard} ${IsChallangeTaken(challange.id) ? classes.ChallangeTaken : ``}`}
+    >
       <p>{challange.habitName}</p>
       <p>{challange.HabitType}</p>
       {challange?.goal?.min && (
@@ -16,7 +23,13 @@ function ChallangeItem({ challange, OnAddChallange }: ChallangeItemProps) {
           min:{challange.goal.min} {challange.Unit}
         </p>
       )}
-      <Button onClick={() => OnAddChallange(challange)}>Start challange</Button>
+      {!IsChallangeTaken(challange.id) ? (
+        <Button onClick={() => OnAddChallange(challange)}>
+          Start challange
+        </Button>
+      ) : (
+        <p>Challange Taken</p>
+      )}
     </li>
   );
 }

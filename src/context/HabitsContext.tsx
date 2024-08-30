@@ -115,7 +115,11 @@ export function HabitsProvider({ children }: HabitsProviderProps) {
   };
 
   const addChallangeHandler = (habit: HabitAddictionItem) => {
-    setItems([...items, habit]);
+    if (!items.find((item) => item.id === habit.id)) {
+      setItems([...items, habit]);
+    } else {
+      console.log(`Challange already taken`);
+    }
   };
 
   return (

@@ -8,6 +8,7 @@ const DUMMY_CHALLANGES: HabitAddictionItem[] = [
     id: 5234,
     habitName: `Dont drink alcohol for a week`,
     HabitType: `Addiction`,
+    time: new Date(),
   },
   {
     id: 5235,
@@ -20,7 +21,11 @@ const DUMMY_CHALLANGES: HabitAddictionItem[] = [
 ];
 
 function ChallangesList() {
-  const { addChallangeHandler } = useStore();
+  const { addChallangeHandler, Items } = useStore();
+
+  function challangeIsTaken(challangeId: number): boolean {
+    return Items.some((item) => item.id === challangeId);
+  }
   return (
     <div>
       <List>
@@ -29,6 +34,7 @@ function ChallangesList() {
             challange={chall}
             key={index}
             OnAddChallange={addChallangeHandler}
+            IsChallangeTaken={challangeIsTaken}
           />
         ))}
       </List>
