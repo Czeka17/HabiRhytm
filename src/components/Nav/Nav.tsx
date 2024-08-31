@@ -24,6 +24,11 @@ function Nav() {
             Rewards
           </NavLink>
         </li>
+        <li>
+          <NavLink className={classes.link} to="/profile">
+            Profile
+          </NavLink>
+        </li>
       </ul>
     </nav>
   );

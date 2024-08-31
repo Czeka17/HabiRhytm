@@ -5,6 +5,7 @@ import RewardsPage from './RewardsPage/RewardsPage';
 import Nav from '../components/Nav/Nav';
 import FillHabitsPage from './FillHabitsPage/FillHabitsPage';
 import ChallangesPage from './ChallangesPage/ChallangesPage';
+import ProfilePage from './ProfilePage/ProfilePage';
 function PagesRouter() {
   return (
     <Router>
@@ -14,6 +15,7 @@ function PagesRouter() {
         <Route path="/summary" element={<SummaryPage />} />
         <Route path="/rewards" element={<RewardsPage />} />
         <Route path="/fill" element={<FillHabitsPage />} />
+        <Route path="/profile" element={<ProfilePage />} />
         <Route path="/challanges" element={<ChallangesPage />} />
       </Routes>
     </Router>

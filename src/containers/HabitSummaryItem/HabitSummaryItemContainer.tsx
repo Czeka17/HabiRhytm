@@ -226,7 +226,14 @@ function HabitSummaryItemContainer({ item }: HabitsSummaryItemContainerProps) {
                     item.goal.max !== undefined &&
                     data.value > item.goal.min &&
                     data.value < item.goal.max,
-                ).length || 0,
+                ).length ||
+                  item.data?.filter(
+                    (data) =>
+                      item.goal &&
+                      item.goal.max === undefined &&
+                      data.value > item.goal.min,
+                  ).length ||
+                  0,
                 item.data?.filter(
                   (data) =>
                     item.goal &&

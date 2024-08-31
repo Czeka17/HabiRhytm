@@ -75,6 +75,8 @@ function FillHabits({
             value={moodValue}
             onChange={OnChange}
             placeholder="Enter your Mood value"
+            min={1}
+            max={10}
           />
         </div>
       )}
