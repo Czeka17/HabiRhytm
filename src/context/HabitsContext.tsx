@@ -109,7 +109,13 @@ export function HabitsProvider({ children }: HabitsProviderProps) {
   const resetAddictionTimer = (id: number) => {
     setItems(
       items.map((item) =>
-        item.id === id ? { ...item, time: new Date() } : item,
+        item.id === id
+          ? {
+              ...item,
+              addictionData: [...(item.addictionData || []), new Date()],
+              time: new Date(),
+            }
+          : item,
       ),
     );
   };

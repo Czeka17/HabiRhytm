@@ -15,7 +15,6 @@ function RoutineItem({ habit, OnOpen, OnSelect }: HabitItemProps) {
   const { DeleteItemHandler, ResetAddictionTimer } = useStore();
   const handleEditClick = () => {
     OnSelect(habit.id);
-
     OnOpen();
   };
 

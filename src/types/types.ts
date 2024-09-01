@@ -6,4 +6,5 @@ export interface HabitAddictionItem {
   Unit?: string;
   goal?: { min: number; max?: number };
   data?: { date: string; value: number; mood?: string }[];
+  addictionData?: Date[];
 }

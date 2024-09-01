@@ -11,7 +11,6 @@
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.6);
-    z-index: 1;
 }
 .HabitModalContent{
     position: fixed;
@@ -23,4 +22,5 @@
     background-color: var(--accent-color);
     color: var(--text-color);
     z-index: 2;
+    color: black;
 }

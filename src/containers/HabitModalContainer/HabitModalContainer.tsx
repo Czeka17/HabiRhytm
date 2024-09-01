@@ -213,6 +213,6 @@ function HabitModalContainer({
     );
   }
 
-  return <HabitModal>{content}</HabitModal>;
+  return <HabitModal onClose={handleClose}>{content}</HabitModal>;
 }
 export default HabitModalContainer;
