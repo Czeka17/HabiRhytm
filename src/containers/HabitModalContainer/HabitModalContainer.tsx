@@ -31,7 +31,6 @@ const units = [
   `fahrenheits`,
   `happiness`,
 ];
-
 function HabitModalContainer({
   IsOpen,
   OnClose,

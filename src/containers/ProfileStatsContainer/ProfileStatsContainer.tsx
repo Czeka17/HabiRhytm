@@ -89,20 +89,20 @@ function ProfileStatsContainer() {
   function CalculateAverageHappiness() {
     let totalHappiness = 0;
     let totalValuesCount = 0;
-    Items.forEach((item) => {
-      if (item.data) {
-        const itemTotal = item.data.reduce((acc, curr) => acc + curr.value, 0);
-        totalHappiness += itemTotal;
-        totalValuesCount += item.data.length;
-      }
-    });
+
+    if (moodItem && moodItem.data) {
+      const itemTotal = moodItem.data.reduce(
+        (acc, curr) => acc + curr.value,
+        0,
+      );
+      totalHappiness += itemTotal;
+      totalValuesCount += moodItem.data.length;
+    }
 
     const averageHappiness =
       totalValuesCount > 0 ? totalHappiness / totalValuesCount : 0;
-
     return averageHappiness;
   }
-  const overallHappiness = CalculateAverageHappiness();
 
   const mostOftenHumor = () => {
     const moodCounts: { [key: string]: number } = {
@@ -126,6 +126,7 @@ function ProfileStatsContainer() {
     return mostFrequentMoods;
   };
 
+  const overallHappiness = CalculateAverageHappiness();
   const mostFrequentMoods = mostOftenHumor();
   return (
     <div>
