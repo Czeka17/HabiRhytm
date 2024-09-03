@@ -1,10 +1,10 @@
+import RewardsListContainer from '../../containers/RewardsListContainer/RewardsListContainer';
 import PerksList from '../../components/Rewards/PerksList/PerksList';
-import RewardsList from '../../components/Rewards/RewardsList/RewardsList';
 
 function RewardsPage() {
   return (
     <>
-      <RewardsList />
+      <RewardsListContainer />
       <PerksList />
     </>
   );

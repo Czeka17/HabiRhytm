@@ -2,9 +2,11 @@ import FillHabits from '../../components/FillHabits/FillHabits';
 import { useStore } from '../../context/HabitsContext';
 import { useState } from 'react';
 import CalendarWeek from '../../UI/Calendar/Calendar';
+import { useExperience } from '../../context/ExperienceContext';
 
 function FillHabitsContainer() {
   const { Items, handleUpdateHabitData, handleEditHabitData } = useStore();
+  const { addExperienceHandler } = useExperience();
   const habits = Items.filter((habit) => habit.HabitType === `Habit`);
 
   const mood = Items.find((item) => item.HabitType === `Mood`);
@@ -72,6 +74,7 @@ function FillHabitsContainer() {
           console.log(`edit`);
         } else {
           handleUpdateHabitData(mood.id, moodData);
+          addExperienceHandler(5);
           console.log(`update`);
         }
         setIsMoodStep(false);

@@ -5,6 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { HabitsProvider } from './context/HabitsContext';
 import { ThemeProvider } from './context/ThemeContext';
+import { ExperienceProvider } from './context/ExperienceContext';
 const root = ReactDOM.createRoot(
   document.getElementById(`root`) as HTMLElement,
 );
@@ -12,7 +13,9 @@ root.render(
   <React.StrictMode>
     <HabitsProvider>
       <ThemeProvider>
-        <App />
+        <ExperienceProvider>
+          <App />
+        </ExperienceProvider>
       </ThemeProvider>
     </HabitsProvider>
   </React.StrictMode>,
