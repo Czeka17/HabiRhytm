@@ -1,7 +1,12 @@
 import { createContext, useState, useContext, ReactNode } from 'react';
 
 interface ThemeContextType {
-  theme: { color?: string; background?: string; font?: string };
+  theme: {
+    color?: string;
+    background?: string;
+    font?: string;
+    accent?: string;
+  };
   applyTheme: (newTheme: string, themeType: string) => void;
 }
 
@@ -16,10 +21,12 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
     color?: string;
     background?: string;
     font?: string;
+    accent?: string;
   }>({
     color: `#FFFFFF`,
     background: `#2f2f2f`,
     font: `default`,
+    accent: `#3d3d3d`,
   });
 
   const applyTheme = (newTheme: string, themeType: string) => {
@@ -28,6 +35,9 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
     }
     if (themeType === `Color`) {
       setTheme({ color: newTheme });
+    }
+    if (themeType === `Accent`) {
+      setTheme({ accent: newTheme });
     }
     if (themeType === `Font`) {
       setTheme({ font: newTheme });

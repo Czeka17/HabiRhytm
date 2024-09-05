@@ -30,6 +30,11 @@ function Nav() {
           </NavLink>
         </li>
         <li>
+          <NavLink className={classes.link} to="/minigames">
+            Minigames
+          </NavLink>
+        </li>
+        <li>
           <NavLink className={classes.link} to="/profile">
             <div>
               <p>level: {level}</p>

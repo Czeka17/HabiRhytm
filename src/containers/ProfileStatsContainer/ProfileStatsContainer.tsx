@@ -2,9 +2,11 @@ import ProfileSummary from '../../components/Profile/ProfileSummary/ProfileSumma
 import ProfileStats from '../../components/Profile/ProfileStats/ProfileStats';
 import { useStore } from '../../context/HabitsContext';
 import { useState, useEffect } from 'react';
+import { useExperience } from '../../context/ExperienceContext';
 
 function ProfileStatsContainer() {
   const { Items } = useStore();
+  const { completedChallanges } = useExperience();
   const [correlationDescriptions, setCorrelationDescriptions] = useState<
     string[]
   >([]);
@@ -70,14 +72,14 @@ function ProfileStatsContainer() {
       if (weekend > weekday) {
         setCorrelationDescriptions((PrevDescriptions) => [
           ...PrevDescriptions,
-          `You usually break your ${addiction.habitName} on the weekend`,
+          `You usually break your ${addiction.habitName} addiction on the weekend`,
         ]);
       } else if (weekend === 0 && weekday === 0) {
         return null;
       } else {
         setCorrelationDescriptions((PrevDescriptions) => [
           ...PrevDescriptions,
-          `You usually break your ${addiction.habitName} on weekdays`,
+          `You usually break your ${addiction.habitName} addiction on weekdays`,
         ]);
       }
     });
@@ -132,6 +134,7 @@ function ProfileStatsContainer() {
     <div>
       <ProfileSummary overallHappiness={overallHappiness} />
       <ProfileStats
+        completedChallanges={completedChallanges}
         overallHappiness={overallHappiness}
         daysDone={daysDone}
         mostFrequentMoods={mostFrequentMoods}

@@ -5,12 +5,14 @@ import RewardsList from '../../components/Rewards/RewardsList/RewardsList';
 const DUMMY_REWARDS = [
   {
     name: `Keep your streak for a week`,
+    type: `Streak`,
     condition: `streak-week`,
     experience: 40,
     isCompleted: false,
   },
   {
     name: `Keep your streak for a month`,
+    type: `Streak`,
     condition: `streak-month`,
     experience: 100,
     isCompleted: false,
@@ -18,73 +20,88 @@ const DUMMY_REWARDS = [
   {
     name: `Keep your streak for a year`,
     condition: `streak-year`,
+    type: `Streak`,
     experience: 1000,
     isCompleted: false,
   },
   {
     name: `Dont let your addiction win for 6 hours`,
     condition: `addiction-6-hours`,
+    type: `Addiction`,
     experience: 20,
     isCompleted: false,
   },
   {
     name: `Dont let your addiction win for a day`,
     condition: `addiction-day`,
+    type: `Addiction`,
     experience: 30,
     isCompleted: false,
   },
   {
     name: `Dont let your addiction win for a week`,
     condition: `addiction-week`,
+    type: `Addiction`,
     experience: 40,
     isCompleted: false,
   },
   {
     name: `Dont let your addiction win for a month`,
     condition: `addiction-month`,
+    type: `Addiction`,
     experience: 100,
     isCompleted: false,
   },
   {
     name: `Dont let your addiction win for a year`,
     condition: `addiction-year`,
+    type: `Addiction`,
     experience: 1000,
     isCompleted: false,
   },
   {
     name: `Complete your first challenge`,
     condition: `first-challenge`,
+    type: `Challange`,
     experience: 30,
     isCompleted: false,
   },
   {
     name: `Complete 5 challenges`,
     condition: `five-challenges`,
+    type: `Challange`,
     experience: 150,
     isCompleted: false,
   },
   {
     name: `Complete 10 challenges`,
     condition: `ten-challenges`,
+    type: `Challange`,
     experience: 300,
     isCompleted: false,
   },
   {
     name: `Complete 25 challenges`,
     condition: `twenty-five-challenges`,
+    type: `Challange`,
     experience: 750,
     isCompleted: false,
   },
 ];
 interface RewardItem {
   name: string;
+  type: string;
   condition: string;
   experience: number;
   isCompleted: boolean;
 }
 function RewardsListContainer() {
   const { Items } = useStore();
-  const { addExperienceHandler } = useExperience();
+  const {
+    addExperienceHandler,
+    completeChallangeHandler,
+    completedChallanges,
+  } = useExperience();
   const [rewards, setRewards] = useState<RewardItem[]>([]);
 
   // zmienic na state
@@ -137,6 +154,7 @@ function RewardsListContainer() {
         if (completed && reward.isCompleted === false) {
           reward.isCompleted = true;
           addExperienceHandler(reward.experience);
+          completeChallangeHandler();
         }
 
         return { ...reward, completed };
@@ -162,9 +180,7 @@ function RewardsListContainer() {
     };
 
     const checkChallenges = (count: number) => {
-      console.log(count);
-      // user will have challanges array
-      return false;
+      return completedChallanges >= count;
     };
 
     checkRewards();

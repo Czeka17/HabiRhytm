@@ -4,6 +4,11 @@ import PerkItem from '../PerkItem/PerkItem';
 const DUMMY_PERKS = [
   {
     PerkType: `Background`,
+    color: `#2f2f2f`,
+    UnlockedAt: 1,
+  },
+  {
+    PerkType: `Background`,
     color: `#123123`,
     UnlockedAt: 1,
   },
@@ -23,13 +28,33 @@ const DUMMY_PERKS = [
     UnlockedAt: 4,
   },
   {
-    PerkType: `Color`,
-    color: `#111472`,
+    PerkType: `Accent`,
+    color: `#3d3d3d`,
     UnlockedAt: 1,
+  },
+  {
+    PerkType: `Accent`,
+    color: `#60A561`,
+    UnlockedAt: 2,
+  },
+  {
+    PerkType: `Accent`,
+    color: `#0B4F6C`,
+    UnlockedAt: 3,
+  },
+  {
+    PerkType: `Accent`,
+    color: `#60A561`,
+    UnlockedAt: 4,
   },
   {
     PerkType: `Color`,
     color: `#FFFFFF`,
+    UnlockedAt: 1,
+  },
+  {
+    PerkType: `Color`,
+    color: `#111472`,
     UnlockedAt: 2,
   },
   {
@@ -72,6 +97,14 @@ function PerksList() {
       <p>Font Colors</p>
       <List isAddictionList={true}>
         {DUMMY_PERKS.filter((item) => item.PerkType === `Color`).map(
+          (perk, index) => (
+            <PerkItem key={index} perk={perk} />
+          ),
+        )}
+      </List>
+      <p>Accent Colors</p>
+      <List isAddictionList={true}>
+        {DUMMY_PERKS.filter((item) => item.PerkType === `Accent`).map(
           (perk, index) => (
             <PerkItem key={index} perk={perk} />
           ),

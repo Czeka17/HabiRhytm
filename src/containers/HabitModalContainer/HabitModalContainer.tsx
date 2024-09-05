@@ -148,14 +148,29 @@ function HabitModalContainer({
   if (SelectedItemId !== null && state.is === `selection`) {
     content = (
       <div>
-        <input type="text" value={habitName} onChange={handleInputChange} />
+        <div>
+          <label>name</label>
+          <input
+            className="border-2 p-2 m-2 rounded"
+            style={{ backgroundColor: `var(--bg-color)` }}
+            type="text"
+            value={habitName}
+            onChange={handleInputChange}
+          />
+        </div>
+        <label>min</label>
         <input
+          className="border-2 p-2 m-2 rounded"
+          style={{ backgroundColor: `var(--bg-color)` }}
           type="number"
           placeholder="min"
           value={minValue}
           onChange={handleMinChange}
         />
+        <label>max</label>
         <input
+          className="border-2 p-2 m-2 rounded"
+          style={{ backgroundColor: `var(--bg-color)` }}
           type="number"
           placeholder="max"
           value={maxValue}
@@ -169,17 +184,32 @@ function HabitModalContainer({
 
   if (state.is === `selection` && SelectedItemId === null) {
     content = (
-      <div>
-        <button onClick={() => HabitSelectionHandler(true)}>Habit</button>
-        <button onClick={() => HabitSelectionHandler(false)}>Addiction</button>
-        <Button onClick={handleClose} name={`Exit`} />
+      <div className="p-2 flex items-center justify-center">
+        <button
+          className="p-2 m-2 border-2 rounded"
+          onClick={() => HabitSelectionHandler(true)}
+        >
+          Habit
+        </button>
+        <button
+          className="p-2 m-2 border-2 rounded"
+          onClick={() => HabitSelectionHandler(false)}
+        >
+          Addiction
+        </button>
       </div>
     );
   }
   if (state.is === `name`) {
     content = (
       <div>
-        <input type="text" onChange={handleInputChange} />
+        <input
+          className="border-2 p-2 m-2 rounded"
+          style={{ backgroundColor: `var(--bg-color)` }}
+          type="text"
+          placeholder="Habit name"
+          onChange={handleInputChange}
+        />
         <button onClick={() => HandleNameSelected()}>Next</button>
         <Button onClick={handleClose} name={`Exit`} />
       </div>
@@ -189,18 +219,27 @@ function HabitModalContainer({
     content = (
       <div>
         <input
+          className="border-2 p-2 m-2 rounded"
+          style={{ backgroundColor: `var(--bg-color)` }}
           type="number"
           placeholder="min"
           value={minValue}
           onChange={handleMinChange}
         />
         <input
+          className="border-2 p-2 m-2 rounded"
+          style={{ backgroundColor: `var(--bg-color)` }}
           type="number"
           placeholder="max"
           value={maxValue}
           onChange={handleMaxChange}
         />
-        <select onChange={changeUnitHandler} value={unit}>
+        <select
+          className="border-2 p-2 m-2 rounded"
+          style={{ backgroundColor: `var(--bg-color)` }}
+          onChange={changeUnitHandler}
+          value={unit}
+        >
           {units.map((u) => (
             <option key={u} value={u}>
               {u}

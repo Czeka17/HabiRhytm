@@ -1,10 +1,30 @@
+import { useState } from 'react';
+import ChangeProfileImageModal from '../ChangeProfileImageModal/ChangeProfileImageModal';
 import classes from './ProfileImage.module.css';
-function ProfileImage() {
+
+interface ProfileImageProps {
+  profileImage: string;
+  OnChangeProfileImage: (url: string) => void;
+}
+function ProfileImage({
+  profileImage,
+  OnChangeProfileImage,
+}: ProfileImageProps) {
+  const [ModalIsOpen, setModalIsOpen] = useState(false);
+  function hideModal() {
+    setModalIsOpen(false);
+  }
   return (
     <div>
-      <div className={classes.ProfilePic}>
-        <img src="https://image.ceneostatic.pl/data/article_picture/3b/57/7fdb-9928-4029-a5f4-6b1556cb59d1_large.jpg" />
+      <div className={classes.ProfilePic} onClick={() => setModalIsOpen(true)}>
+        <img src={profileImage} />
       </div>
+      {ModalIsOpen && (
+        <ChangeProfileImageModal
+          OnHideModal={hideModal}
+          OnChangeProfileImage={OnChangeProfileImage}
+        />
+      )}
     </div>
   );
 }

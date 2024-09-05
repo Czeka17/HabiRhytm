@@ -6,6 +6,8 @@ import Nav from '../components/Nav/Nav';
 import FillHabitsPage from './FillHabitsPage/FillHabitsPage';
 import ChallangesPage from './ChallangesPage/ChallangesPage';
 import ProfilePage from './ProfilePage/ProfilePage';
+import MinigamesPage from './MinigamesPage/MinigamesPage';
+import Garden from '../components/minigames/Garden/Garden';
 function PagesRouter() {
   return (
     <Router>
@@ -16,6 +18,8 @@ function PagesRouter() {
         <Route path="/rewards" element={<RewardsPage />} />
         <Route path="/fill" element={<FillHabitsPage />} />
         <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/minigames" element={<MinigamesPage />} />
+        <Route path="/minigames/garden" element={<Garden />} />
         <Route path="/challanges" element={<ChallangesPage />} />
       </Routes>
     </Router>

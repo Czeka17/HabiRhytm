@@ -23,6 +23,12 @@ function PerkItem({ perk }: PerkItemProps) {
     if (theme.color) {
       document.documentElement.style.setProperty(`--text-color`, theme.color);
     }
+    if (theme.accent) {
+      document.documentElement.style.setProperty(
+        `--accent-color`,
+        theme.accent,
+      );
+    }
     if (theme.font) {
       document.documentElement.style.setProperty(`--font-family`, theme.font);
     }
@@ -31,7 +37,7 @@ function PerkItem({ perk }: PerkItemProps) {
     <>
       {level >= perk.UnlockedAt ? (
         <div
-          className="h-[150px] w-[150px]"
+          className={`h-[150px] w-[150px] rounded-full ${theme.background === perk.color ? `border-4 border-blue-400` : ``}`}
           onClick={() => applyTheme(perk.color, perk.PerkType)}
           style={{ backgroundColor: perk.color, cursor: `pointer` }}
         >
